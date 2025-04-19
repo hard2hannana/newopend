@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["ES2018", "DOM"],
+    "allowJs": true,
+    "jsx": "react",
+    "outDir": "build",              // <--- prevent writes to src
+    "skipLibCheck": true,           // optional: faster builds
+    "esModuleInterop": true         // optional: better module compatibility
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/declarations", "node_modules"]
+}
