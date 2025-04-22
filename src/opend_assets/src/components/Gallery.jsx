@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
-import { Header} from "./Header";
-import { Principal } from "@dfinity/principal";
+// import  Header from "./Header";
+
 
 
 
@@ -14,7 +14,7 @@ function Gallery(props) {
     if (props.ids != undefined) {
       setItems(
       props.ids.map( (nftId) => (
-        <Item id={nftId} key={nftId.toText()}/>
+        <Item id={nftId} key={nftId.toText()} role={props.role} />
         ))
       )
     }
