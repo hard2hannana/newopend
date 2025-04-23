@@ -90,12 +90,36 @@ actor OpenD {
         return listing.itemOwner;
     };
 
-     public query func getListedNFTOwner(id: Principal) : async Nat {
+    public query func getListedNFTOwner(id: Principal) : async Nat {
         var listing : Listing = switch (mapOfListings.get(id)) {
             case null return 0;
             case (?result) result;
         };
 
         return listing.itemPrice;
-    }
+    };
+
+    public shared(msg) func completePurchase(id: Principal, newOwnerId: Principal) : async Text {
+        var purchasedNFT : NFTActorClass.NFT = switch (mapOfNFTs.get(id)) {
+            case null return "NFT doesn't exist";
+            case (?result) result
+        };
+        let transferResult = await purchasedNFT.transferOwnership(newOwnerId);
+        if (transferResult == "Success") {
+            mapOfListings.delete(id);
+            var ownedNFTs : List.List<Principal> = switch (mapOfOwners.get(newOwnerId)) {
+                case null List.nil<Principal>();
+                case (?result) result;
+            };
+            ownedNFTs := List.filter(ownedNFTs, func (listItemId: Principal) : Bool {
+                return listItemId != id;
+            });
+            addToOwnershipMap(newOwnerId, id);
+            return "Success";
+        } else {
+            return transferResult;
+        };
+        
+    };
+
 };

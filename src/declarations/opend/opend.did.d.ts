@@ -1,5 +1,6 @@
 import type { Principal } from '@dfinity/principal';
 export interface _SERVICE {
+  'completePurchase' : (arg_0: Principal, arg_1: Principal) => Promise<string>,
   'getListedNFTOwner' : (arg_0: Principal) => Promise<bigint>,
   'getListedNFTs' : () => Promise<Array<Principal>>,
   'getOpenDCanisterID' : () => Promise<Principal>,
